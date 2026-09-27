@@ -81,6 +81,16 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 #intro.open .door.r{transform:translateX(102%)}
 #intro.open .card{opacity:0;transform:scale(1.15)}
 #intro.gone{display:none}
+@media (max-width:480px){
+  #intro .card{padding:12px 8px;gap:4px}
+  #intro h1{font-size:clamp(36px,10vw,52px)}
+  #intro .door img{opacity:.3;max-width:90%}
+  .seal{width:100px;height:100px;margin-top:8px}
+  .seal span{font-size:32px}
+  .seal::before{inset:-5px}
+  #intro .eyebrow{font-size:11px}
+  #intro .hint{font-size:11px;margin-top:2px}
+}
 
 /* ============ NAV ============ */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,248,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -496,30 +506,6 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
       <h2><span data-i18n="gTitleA">Event</span> <em data-i18n="gTitleB">Gallery</em></h2>
     </div>
 
-    <div class="upload reveal" id="uploadOpen" hidden>
-      <div class="big" aria-hidden="true">✿</div>
-      <h3 data-i18n="capture">Capture the moments</h3>
-      <p data-i18n-html="uploadHelp">Help us keep our memories! Upload up to <b>3 photos</b> from your phone during the celebrations (15 &amp; 16 Nov).</p>
-      <div class="meter" id="meter" aria-hidden="true"></div>
-      <p><span data-i18n="uploaded">Photos uploaded</span>: <b id="usedCount">0</b> / <span id="maxCount">3</span></p>
-      <div class="row" id="pickRow">
-        <label class="btn" for="camInput"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg><span data-i18n="takePhoto">Take photo</span></label>
-        <label class="btn ghost" for="fileInput" data-i18n="pickPhoto">Choose from gallery</label>
-        <input id="camInput" type="file" accept="image/*" capture="environment" hidden>
-        <input id="fileInput" type="file" accept="image/*" multiple hidden>
-      </div>
-      <div class="preview-strip" id="previewStrip"></div>
-      <div class="field" id="upNameWrap" hidden style="width:min(320px,100%);margin:0"><label for="up-name" data-i18n="yourNameOpt">Your name (optional)</label><input id="up-name" maxlength="40"></div>
-      <button class="btn" type="button" id="uploadBtn" hidden data-i18n="uploadNow">Upload to gallery</button>
-      <div class="progress" id="upProg" hidden><i></i></div>
-      <p class="form-msg" id="upMsg" role="status"></p>
-    </div>
-
-    <div class="locked-box reveal" id="uploadLocked">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      <strong style="color:var(--maroon);font-size:20px" data-i18n="lockedT">Photo uploads open on the celebration days</strong>
-      <span data-i18n="lockedS">Join us on 15 &amp; 16 November 2026 and share your photos here.</span>
-    </div>
 
     <div style="margin-top:36px">
       <p class="caps" style="text-align:center;font-size:13px;color:var(--maroon)" data-i18n="memories">Memories shared by guests</p>
@@ -661,19 +647,29 @@ async function copy(text){
 
 /* ---------------- intro + music ---------------- */
 const Music = (()=>{
-  const au=new Audio(); au.src=C.music||"assets/song.mp3"; au.loop=true; au.preload="auto"; au.volume=0;
-  let on=false, fade, level=store.get("km-vol",30);
-  function ramp(to,ms,done){ clearInterval(fade); const from=au.volume, t0=performance.now();
-    fade=setInterval(()=>{ const k=Math.min(1,(performance.now()-t0)/ms); au.volume=from+(to-from)*k; if(k>=1){ clearInterval(fade); done&&done(); } },50); }
-  function update(){ const b=$("#musicBtn"); b.classList.toggle("playing",on); b.setAttribute("aria-pressed",on); b.setAttribute("aria-label", on?"Pause music":"Play music"); }
-  document.addEventListener("visibilitychange",()=>{ if(document.hidden && on){ au.pause(); } else if(!document.hidden && on){ au.play().catch(()=>{}); } });
+  const au=new Audio(); au.src=C.music||"assets/song.mp3"; au.loop=true; au.preload="auto";
+  let ctx,gain,on=false,fade,level=store.get("km-vol",10);
+  function initCtx(){
+    if(ctx) return;
+    try{
+      ctx=new(window.AudioContext||window.webkitAudioContext)();
+      const src=ctx.createMediaElementSource(au);
+      gain=ctx.createGain(); gain.gain.value=0;
+      src.connect(gain); gain.connect(ctx.destination);
+    }catch(e){ ctx=null; }
+  }
+  function setVol(v){ if(gain) gain.gain.value=Math.max(0,Math.min(1,v)); else try{au.volume=Math.max(0,Math.min(1,v));}catch(_){} }
+  function ramp(to,ms,done){ clearInterval(fade); const from=gain?gain.gain.value:au.volume, t0=performance.now();
+    fade=setInterval(()=>{ const k=Math.min(1,(performance.now()-t0)/ms); setVol(from+(to-from)*k); if(k>=1){clearInterval(fade);done&&done();} },50); }
+  function update(){ const b=$("#musicBtn"); b.classList.toggle("playing",on); b.setAttribute("aria-pressed",on); b.setAttribute("aria-label",on?"Pause music":"Play music"); }
+  document.addEventListener("visibilitychange",()=>{ if(document.hidden&&on){ au.pause(); }else if(!document.hidden&&on){ au.play().catch(()=>{}); } });
   return {
-    start(){ const p=au.play(); on=true; update(); ramp(level/100,2500); if(p) p.catch(()=>{ on=false; update(); }); },
+    start(){ initCtx(); if(ctx) ctx.resume().catch(()=>{}); setVol(0); const p=au.play(); on=true; update(); ramp(level/100,2000); if(p) p.catch(()=>{on=false;update();}); },
     stop(){ on=false; update(); ramp(0,600,()=>au.pause()); },
-    toggle(){ on? this.stop(): this.start(); },
+    toggle(){ on?this.stop():this.start(); },
     get on(){ return on; },
     get volume(){ return level; },
-    setVolume(v){ level=Math.max(0,Math.min(100,v)); store.set("km-vol",level); clearInterval(fade); if(on) au.volume=level/100; return level; }
+    setVolume(v){ level=Math.max(0,Math.min(100,v)); store.set("km-vol",level); clearInterval(fade); if(on) setVol(level/100); return level; }
   };
 })();
 
@@ -910,49 +906,7 @@ $("#wishForm").addEventListener("submit",async e=>{
 });
 loadWishes(); if(API.live) setInterval(loadWishes,30000);
 
-/* ---------------- gallery ---------------- */
-const up=C.uploads, now=Date.now();
-const open = up.alwaysOpen || (now>=new Date(up.opensAt).getTime() && now<new Date(up.closesAt).getTime());
-$("#uploadOpen").hidden=!open; $("#uploadLocked").hidden=open; $("#maxCount").textContent=up.perDevice;
-let used=store.get("km-used",0), pending=[];
-function renderMeter(){
-  const m=$("#meter"); m.textContent=""; for(let i=0;i<up.perDevice;i++){ const b=document.createElement("i"); if(i<used) b.className="on"; m.appendChild(b); }
-  $("#usedCount").textContent=used;
-  const done=used>=up.perDevice; $("#pickRow").hidden=done;
-  if(done && open) $("#upMsg").textContent=t("usedAll");
-}
-function compress(file){
-  return new Promise((res,rej)=>{
-    const img=new Image(); const url=URL.createObjectURL(file);
-    img.onload=()=>{ const max=1600; let {width:w,height:h}=img; const k=Math.min(1,max/Math.max(w,h)); w=Math.round(w*k); h=Math.round(h*k);
-      const c=document.createElement("canvas"); c.width=w; c.height=h; c.getContext("2d").drawImage(img,0,0,w,h); URL.revokeObjectURL(url);
-      c.toBlob(b=>b?res(b):rej(new Error("encode")),"image/jpeg",0.82); };
-    img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("decode")); }; img.src=url;
-  });
-}
-function onPick(files){
-  const left=up.perDevice-used-pending.length; const arr=Array.from(files).filter(f=>f.type.startsWith("image/"));
-  if(arr.length>left) $("#upMsg").textContent=t("tooMany").replace("{n}",Math.max(0,left));
-  pending=pending.concat(arr.slice(0,Math.max(0,left)));
-  const strip=$("#previewStrip"); strip.textContent="";
-  pending.forEach(f=>{ const im=new Image(); im.src=URL.createObjectURL(f); im.alt=""; strip.appendChild(im); });
-  $("#uploadBtn").hidden=!pending.length; $("#upNameWrap").hidden=!pending.length;
-}
-$("#camInput").addEventListener("change",e=>{ onPick(e.target.files); e.target.value=""; });
-$("#fileInput").addEventListener("change",e=>{ onPick(e.target.files); e.target.value=""; });
-$("#uploadBtn").addEventListener("click",async()=>{
-  const btn=$("#uploadBtn"), bar=$("#upProg"), msg=$("#upMsg"); btn.disabled=true; bar.hidden=false; msg.textContent=t("uploading");
-  const who=$("#up-name").value.trim()||null; let ok=0;
-  for(let i=0;i<pending.length;i++){
-    try{ const b=await compress(pending[i]); await API.addPhoto(b,who); ok++; used++; store.set("km-used",used); }
-    catch(e){ console.warn(e); }
-    bar.firstElementChild.style.width=((i+1)/pending.length*100)+"%";
-  }
-  msg.textContent= ok===pending.length ? t("upDone") : t("upFail");
-  pending=[]; $("#previewStrip").textContent=""; btn.hidden=true; btn.disabled=false; $("#upNameWrap").hidden=true;
-  setTimeout(()=>{ bar.hidden=true; bar.firstElementChild.style.width="0"; },800);
-  renderMeter(); loadPhotos(); if(ok) Petals.burst();
-});
+
 async function loadPhotos(){
   let list=[]; try{ list=await API.listPhotos(); }catch(e){ return; }
   const g=$("#photoGrid"); g.textContent=""; $("#noPhotos").hidden=!!list.length;
