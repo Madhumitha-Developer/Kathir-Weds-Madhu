@@ -80,16 +80,23 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 #intro.open .door.l{transform:translateX(-102%)}
 #intro.open .door.r{transform:translateX(102%)}
 #intro.open .card{opacity:0;transform:scale(1.15)}
+
+/* intro decorative elements */
+.intro-vline{width:1px;height:38px;background:linear-gradient(to bottom,transparent,var(--gold));margin-bottom:0}
+.intro-lotus{color:var(--gold);font-size:18px;line-height:1;margin-top:2px}
 #intro.gone{display:none}
 @media (max-width:480px){
-  #intro .card{padding:12px 8px;gap:4px}
-  #intro h1{font-size:clamp(36px,10vw,52px)}
-  #intro .door img{opacity:.7;max-width:90%}
-  .seal{width:100px;height:100px;margin-top:8px}
-  .seal span{font-size:32px}
+  #intro .card{padding:10px 6px;gap:5px}
+  #intro h1{font-size:clamp(26px,7.5vw,36px);white-space:nowrap}
+  #intro .door img{opacity:.88;max-width:100%}
+  #intro .door.r img{height:75%}
+  .seal{width:104px;height:104px;margin-top:4px}
+  .seal span{font-size:34px}
   .seal::before{inset:-5px}
-  #intro .eyebrow{font-size:11px}
-  #intro .hint{font-size:11px;margin-top:2px}
+  #intro .eyebrow{font-size:10px;letter-spacing:.16em}
+  #intro .hint{font-size:9px;margin-top:2px;letter-spacing:.13em}
+  .intro-vline{height:28px}
+  .intro-lotus{font-size:14px}
 }
 
 /* ============ NAV ============ */
@@ -319,10 +326,12 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
   <div class="door l"><img src="assets/flora-left.jpg" alt=""></div>
   <div class="door r"><img src="assets/flora-right.jpg" alt=""></div>
   <div class="card">
+    <div class="intro-vline" aria-hidden="true"></div>
     <img class="ganesha" src="assets/ganesha.png" alt="">
     <div class="eyebrow caps" data-i18n="introEyebrow">A Wedding Invitation</div>
     <h1 class="script"><span data-i18n="groom">Kathir</span> <span class="amp">&amp;</span> <span data-i18n="bride">Madhu</span></h1>
     <button class="seal" id="sealBtn" aria-label="Open the invitation"><span>K&amp;M</span></button>
+    <div class="intro-lotus" aria-hidden="true">✿</div>
     <div class="hint caps" data-i18n="tapSeal">Tap the seal to open your invitation</div>
   </div>
 </div>
