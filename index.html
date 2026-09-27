@@ -54,10 +54,10 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 /* ============ INTRO ============ */
 #intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
   background:radial-gradient(120% 80% at 50% 30%,#FFF5E6 0%,var(--sky-2) 70%,#F2C9A4 100%)}
-#intro .door{position:absolute;top:0;bottom:0;width:50.5%;background:inherit;transition:transform 1.4s cubic-bezier(.7,0,.2,1)}
+#intro .door{position:absolute;top:0;bottom:0;width:45%;background:inherit;transition:transform 1.4s cubic-bezier(.7,0,.2,1)}
 #intro .door.l{left:0;background:linear-gradient(90deg,#F6D5B4,#FBE7D0);box-shadow:inset -1px 0 0 var(--line)}
 #intro .door.r{right:0;background:linear-gradient(270deg,#F6D5B4,#FBE7D0);box-shadow:inset 1px 0 0 var(--line)}
-#intro .door img{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.95;
+#intro .door img{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.50;
   -webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent)}
 #intro .door.l img{left:0}
 #intro .door.r img{right:0;height:55%;-webkit-mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 45%,transparent 78%);mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 45%,transparent 78%)}
@@ -88,8 +88,8 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 @media (max-width:480px){
   #intro .card{padding:10px 6px;gap:5px}
   #intro h1{font-size:clamp(26px,7.5vw,36px);white-space:nowrap}
-  #intro .door img{opacity:.88;max-width:100%}
-  #intro .door.r img{height:75%}
+  #intro .door img{opacity:.35;max-width:100%}
+  #intro .door.r img{height:55%}
   .seal{width:104px;height:104px;margin-top:4px}
   .seal span{font-size:34px}
   .seal::before{inset:-5px}
@@ -122,12 +122,48 @@ html[lang="ta"] .nav .links a{font-family:var(--tamil);letter-spacing:0;text-tra
 .hero .inner{position:relative;z-index:2;text-align:center;display:grid;justify-items:center;gap:6px;padding-inline:clamp(70px,18vw,220px)}
 @media (max-width:560px){.hero .inner{padding-inline:12px}.hero .flora.l{opacity:.55}.hero .flora.r{opacity:.55}}
 @media (max-width:480px){
-  .names{font-size:clamp(48px,11vw,64px)}
-  .invite-line{font-size:clamp(17px,4vw,22px);margin:4px 0 10px}
-  .ganesha{width:56px;margin-bottom:2px}
-  .hero .together{font-size:13px;margin:6px 0 0}
-  section.block{padding-block:48px}
-  .sec-head{margin-bottom:24px}
+  /* hero */
+  .names{font-size:clamp(44px,11vw,60px)}
+  .names .amp::before,.names .amp::after{width:clamp(24px,6vw,50px)}
+  .invite-line{font-size:clamp(16px,4vw,21px);margin:2px 0 8px}
+  .ganesha{width:52px;margin-bottom:2px}
+  .hero .together{font-size:12px;margin:4px 0 0}
+  /* layout */
+  section.block{padding-block:40px}
+  .sec-head{margin-bottom:18px}
+  .sec-head h2{font-size:clamp(26px,7vw,42px)}
+  .wrap{padding-inline:clamp(14px,4vw,32px)}
+  /* countdown */
+  .clock{gap:clamp(3px,2vw,26px)}
+  .clock .u{min-width:56px}
+  .clock b{font-size:clamp(32px,8vw,64px)}
+  .clock .sep{font-size:clamp(24px,5.5vw,48px)}
+  /* hero dates */
+  .dates .dow,.dates .mon{font-size:13px}
+  .dates .num{font-size:clamp(36px,9vw,62px)}
+  .dates .lbl{font-size:11px}
+  .dates .tm{font-size:13px}
+  /* events */
+  .ev h3{font-size:22px}
+  .ev .date b{font-size:44px}
+  /* venue */
+  .venue-mini strong{font-size:18px}
+  .venue-mini span{font-size:14px}
+  /* wishes */
+  .wish p{font-size:15px}
+  /* contacts */
+  .fam .panel h3{font-size:20px}
+  .person .n{font-size:16px}
+  /* footer */
+  footer .script{font-size:36px}
+  footer{padding-block:28px 20px}
+}
+@media (max-width:380px){
+  .names{font-size:clamp(36px,10vw,52px)}
+  .clock .u{min-width:46px}
+  .clock b{font-size:clamp(28px,8vw,64px)}
+  .clock .sep{font-size:clamp(20px,5vw,48px)}
+  .dates .num{font-size:clamp(30px,8vw,62px)}
 }
 .ganesha{width:74px;height:auto;margin-bottom:6px}
 .hero .together{color:var(--maroon);font-size:15px;margin:10px 0 0}
@@ -278,18 +314,18 @@ footer .btn{border-color:var(--gold-soft);background:transparent;color:var(--gol
 footer .btn:hover{background:rgba(217,184,114,.12)}
 
 /* music */
-.music-ctrl{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:8px}
-.music{position:relative;width:50px;height:50px;border-radius:50%;border:1px solid var(--gold);background:var(--maroon);color:var(--gold-soft);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(86,13,26,.3);flex:none}
-.music svg{width:22px;height:22px}
+.music-ctrl{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column-reverse;align-items:center;gap:5px}
+.music{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:var(--maroon);color:var(--gold-soft);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(86,13,26,.3);flex:none}
+.music svg{width:18px;height:18px}
 .music.playing svg{animation:spin 6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.vol-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--gold);background:var(--paper);color:var(--maroon);font-family:var(--caps);font-size:18px;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px rgba(86,13,26,.18);flex:none;transition:transform .15s,opacity .15s}
+.vol-btn{width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);background:var(--paper);color:var(--maroon);font-family:var(--caps);font-size:13px;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(86,13,26,.18);flex:none;transition:transform .15s,opacity .15s}
 .vol-btn:active{transform:scale(.9)}
 .vol-btn[disabled]{opacity:.4;cursor:not-allowed}
 .vol-meter{display:flex;flex-direction:column-reverse;gap:2px;padding:3px 0}
 .vol-meter i{width:14px;height:3px;border-radius:2px;background:rgba(123,20,38,.15)}
 .vol-meter i.on{background:var(--pink)}
-@media (max-width:480px){.music-ctrl{right:10px}.vol-btn{width:30px;height:30px;font-size:16px}.music{width:46px;height:46px}}
+@media (max-width:480px){.music-ctrl{right:8px;bottom:calc(10px + env(safe-area-inset-bottom,0px));gap:4px}.vol-btn{width:22px;height:22px;font-size:11px}.music{width:36px;height:36px}}
 
 /* scratch card — overlays the hero date grid */
 .dates-wrap{position:relative;width:min(560px,100%);margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 14px 30px rgba(86,13,26,.22)}
@@ -319,7 +355,7 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal.pre{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
-<body class="locked">
+<body class="locked" style="overflow-x:hidden">
 
 <!-- ============ INTRO ============ -->
 <div id="intro" role="dialog" aria-label="Wedding invitation">
