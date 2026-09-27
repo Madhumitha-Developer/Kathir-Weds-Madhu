@@ -330,7 +330,6 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
       <a href="#events" data-i18n="navEvents">Celebrations</a>
       <a href="#venue" data-i18n="navVenue">Venue</a>
       <a href="#wishes" data-i18n="navWishes">Wishes</a>
-      <a href="#gallery" data-i18n="navGallery">Gallery</a>
       <a href="#contact" data-i18n="navContact">Contact</a>
     </div>
     <div class="lang" role="group" aria-label="Language">
@@ -498,22 +497,6 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
 </section>
 
 
-<!-- ============ GALLERY ============ -->
-<section class="block" id="gallery">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker caps" data-i18n="gKicker">Shared memories</span>
-      <h2><span data-i18n="gTitleA">Event</span> <em data-i18n="gTitleB">Gallery</em></h2>
-    </div>
-
-
-    <div style="margin-top:36px">
-      <p class="caps" style="text-align:center;font-size:13px;color:var(--maroon)" data-i18n="memories">Memories shared by guests</p>
-      <div class="grid" id="photoGrid"></div>
-      <div class="empty" id="noPhotos" data-i18n="noPhotos">No memories shared yet. Be the first to share a moment!</div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ INVITATION CARD ============ -->
 <section class="block paper">
@@ -905,17 +888,6 @@ $("#wishForm").addEventListener("submit",async e=>{
   btn.disabled=false;
 });
 loadWishes(); if(API.live) setInterval(loadWishes,30000);
-
-
-async function loadPhotos(){
-  let list=[]; try{ list=await API.listPhotos(); }catch(e){ return; }
-  const g=$("#photoGrid"); g.textContent=""; $("#noPhotos").hidden=!!list.length;
-  list.forEach(p=>{ const b=document.createElement("button"); b.type="button"; b.setAttribute("aria-label","Open photo"+(p.uploader?" by "+p.uploader:""));
-    const im=new Image(); im.loading="lazy"; im.src=p.url; im.alt=p.uploader?"Photo shared by "+p.uploader:"Guest photo"; b.appendChild(im);
-    b.addEventListener("click",()=>lightbox(p.url,im.alt)); g.appendChild(b); });
-}
-loadPhotos(); if(API.live) setInterval(loadPhotos,60000);
-
 applyLang();
 })();
 </script>
