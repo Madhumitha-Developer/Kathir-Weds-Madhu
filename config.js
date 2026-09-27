@@ -38,7 +38,7 @@ window.WEDDING_CONFIG = {
         { role: { en: "The Groom", ta: "மணமகன்" }, name: "Kathiresan A", phone: "" },
         { role: { en: "Father of the Groom", ta: "மணமகனின் தந்தை" }, name: "Arumugapandi S", phone: "" },
         { role: { en: "Mother of the Groom", ta: "மணமகனின் தாய்" }, name: "Muthulakshmi A", phone: "" },
-        { role: { en: "Brother of the Groom", ta: "மணமகனின் சகோதரர்" }, name: "JothiLingam A", phone: "" }
+        { role: { en: "Brother of the Groom", ta: "மணமகனின் சகோதரர்" }, name: "Vicky A", phone: "" }
       ]
     },
     bride: {
