@@ -86,6 +86,8 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 .intro-lotus{color:var(--gold);font-size:18px;line-height:1;margin-top:2px}
 #intro.gone{display:none}
 @media (max-width:480px){
+  #intro .door.l{box-shadow:none}
+  #intro .door.r{box-shadow:none}
   #intro .card{padding:8px 4px;gap:4px}
   #intro h1{font-size:clamp(26px,7.5vw,36px);white-space:nowrap}
   #intro .door img{opacity:.75;max-width:100%}
@@ -733,7 +735,7 @@ const Petals = (()=>{
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   const cols=["#C8325F","#E0527A","#B8264F","#F08BA8","#D9B872"];
   function size(){ W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio; }
-  function add(n,fromTop){ for(let i=0;i<n;i++) list.push({x:Math.random()*W,y:fromTop? -Math.random()*H*0.6 : -20,r:(6+Math.random()*8)*devicePixelRatio,vy:(0.6+Math.random()*1.2)*devicePixelRatio,vx:(Math.random()-.5)*0.8*devicePixelRatio,a:Math.random()*6.3,va:(Math.random()-.5)*0.05,sw:Math.random()*6.3,c:cols[i%cols.length]}); }
+  function add(n,fromTop){ for(let i=0;i<n;i++) list.push({x:Math.random()*W,y:fromTop? -Math.random()*H*0.6 : -20,r:(innerWidth<480?(3+Math.random()*3):(6+Math.random()*8))*devicePixelRatio,vy:(innerWidth<480?(0.4+Math.random()*0.7):(0.6+Math.random()*1.2))*devicePixelRatio,vx:(Math.random()-.5)*0.8*devicePixelRatio,a:Math.random()*6.3,va:(Math.random()-.5)*0.05,sw:Math.random()*6.3,c:cols[i%cols.length]}); }
   function draw(){
     cx.clearRect(0,0,W,H);
     list.forEach(p=>{ p.sw+=0.02; p.x+=p.vx+Math.sin(p.sw)*0.6; p.y+=p.vy; p.a+=p.va;
@@ -744,7 +746,7 @@ const Petals = (()=>{
     if(list.length) raf=requestAnimationFrame(draw); else { raf=null; cx.clearRect(0,0,W,H); }
   }
   addEventListener("resize",size); size();
-  return { burst(){ if(reduce) return; add(60,true); until=performance.now()+25000; if(!raf) raf=requestAnimationFrame(draw); } };
+  return { burst(){ if(reduce) return; add(innerWidth<480?28:60,true); until=performance.now()+25000; if(!raf) raf=requestAnimationFrame(draw); } };
 })();
 
 /* ---------------- scratch card ---------------- */
