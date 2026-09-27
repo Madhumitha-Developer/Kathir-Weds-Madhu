@@ -662,7 +662,7 @@ async function copy(text){
 /* ---------------- intro + music ---------------- */
 const Music = (()=>{
   const au=new Audio(); au.src=C.music||"assets/song.mp3"; au.loop=true; au.preload="auto"; au.volume=0;
-  let on=false, fade, level=store.get("km-vol",80);
+  let on=false, fade, level=store.get("km-vol",30);
   function ramp(to,ms,done){ clearInterval(fade); const from=au.volume, t0=performance.now();
     fade=setInterval(()=>{ const k=Math.min(1,(performance.now()-t0)/ms); au.volume=from+(to-from)*k; if(k>=1){ clearInterval(fade); done&&done(); } },50); }
   function update(){ const b=$("#musicBtn"); b.classList.toggle("playing",on); b.setAttribute("aria-pressed",on); b.setAttribute("aria-label", on?"Pause music":"Play music"); }
