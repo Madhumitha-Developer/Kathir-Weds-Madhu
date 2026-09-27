@@ -61,10 +61,10 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
   -webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent)}
 #intro .door.l img{left:0}
 #intro .door.r img{right:0;height:55%;-webkit-mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 45%,transparent 78%);mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 45%,transparent 78%)}
-#intro .card{position:relative;z-index:2;text-align:center;padding:20px 16px;display:grid;justify-items:center;gap:8px;transition:opacity .6s,transform .8s}
-#intro .eyebrow{color:var(--ink-soft);font-size:12px;letter-spacing:.18em}
-#intro h1{margin:0;color:var(--maroon);font-size:clamp(56px,12vw,104px);letter-spacing:0.04em;font-variant-ligatures:no-common-ligatures}
-#intro h1 .amp{color:var(--gold);font-size:.7em}
+#intro .card{position:relative;z-index:2;text-align:center;padding:32px 28px;display:grid;justify-items:center;gap:10px;transition:opacity .6s,transform .8s;background:rgba(255,248,234,.88);border-radius:22px;box-shadow:0 10px 44px rgba(86,13,26,.18),0 1px 0 rgba(255,255,255,.7) inset;border:1px solid rgba(181,136,58,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);width:min(340px,88vw)}
+#intro .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.22em}
+#intro h1{margin:0;color:var(--maroon);font-family:var(--serif);font-weight:700;font-size:clamp(36px,9vw,58px);letter-spacing:0.01em;line-height:1.1}
+#intro h1 .amp{color:var(--maroon);font-size:.55em;font-weight:400;padding:0 4px}
 #intro .sub{font-style:italic;color:var(--ink-soft);margin:0}
 .seal{margin-top:6px;width:116px;height:116px;border:0;border-radius:50%;cursor:pointer;position:relative;
   background:radial-gradient(circle at 35% 30%,#B02A3E 0%,var(--maroon) 45%,var(--maroon-deep) 100%);
@@ -84,12 +84,13 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 /* intro decorative elements */
 .intro-vline{display:none}
 .intro-lotus{color:var(--gold);font-size:18px;line-height:1;margin-top:2px}
+.intro-date{font-size:14px;color:var(--ink-soft);font-style:italic;margin:0;font-family:var(--serif)}
 #intro.gone{display:none}
 @media (max-width:480px){
   #intro .door.l{box-shadow:none}
   #intro .door.r{box-shadow:none}
-  #intro .card{padding:8px 4px;gap:4px}
-  #intro h1{font-size:clamp(26px,7.5vw,36px);white-space:nowrap}
+  #intro .card{padding:20px 16px;gap:7px;width:min(300px,88vw)}
+  #intro h1{font-size:clamp(26px,7.8vw,38px)}
   #intro .door img{opacity:.75;max-width:100%}
   #intro .door.r img{height:75%}
   .seal{width:96px;height:96px;margin-top:2px}
@@ -99,6 +100,7 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
   #intro .hint{font-size:9px;margin-top:2px;letter-spacing:.13em}
   .intro-vline{height:28px}
   .intro-lotus{font-size:14px}
+  .intro-date{font-size:12px}
 }
 
 /* ============ NAV ============ */
