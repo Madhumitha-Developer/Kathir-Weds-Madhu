@@ -106,55 +106,65 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 
 /* ============ ENVELOPE ============ */
 #envWrap{display:flex;flex-direction:column;align-items:center;width:88vw;max-width:320px;z-index:2;position:relative}
-#envelope{width:100%;max-width:320px;cursor:pointer;perspective:900px;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column}
-.env-flap{width:100%;height:110px;
-  background:linear-gradient(170deg,#EDB07A 0%,#F4CFAE 100%);
+#envelope{width:100%;cursor:pointer;perspective:800px;-webkit-tap-highlight-color:transparent}
+.env-body{
+  width:100%;height:200px;position:relative;border-radius:6px;
+  background:linear-gradient(160deg,#F4CFAE 0%,#FBE7D0 55%,#F4CFAE 100%);
+  border:1px solid rgba(181,136,58,.28);
+  box-shadow:0 14px 44px rgba(86,13,26,.24);
+}
+/* Bottom V-fold lines */
+.env-body::before{
+  content:"";position:absolute;inset:0;border-radius:6px;pointer-events:none;
+  background:
+    linear-gradient(135deg,rgba(181,136,58,.14) 49.5%,transparent 50%) 0 0/50% 100% no-repeat,
+    linear-gradient(225deg,rgba(181,136,58,.14) 49.5%,transparent 50%) 100% 0/50% 100% no-repeat;
+}
+/* Top flap — triangle INSIDE the body rectangle */
+.env-flap{
+  position:absolute;top:0;left:0;right:0;height:55%;
+  background:linear-gradient(180deg,#DDA060 0%,#EEC090 55%,#F4CFAE 100%);
   clip-path:polygon(0 0,100% 0,50% 100%);
   transform-origin:top center;
   transition:transform .75s cubic-bezier(.4,0,.2,1);
-  position:relative;z-index:2;margin-bottom:-1px;flex-shrink:0}
+  z-index:2;border-radius:6px 6px 0 0;
+}
 #envWrap.env-open .env-flap{transform:rotateX(-180deg)}
-.env-body{
-  background:linear-gradient(160deg,#F4CFAE 0%,#FBE7D0 50%,#F4CFAE 100%);
-  border:1px solid rgba(181,136,58,.3);border-top:none;border-radius:0 0 8px 8px;
-  box-shadow:0 12px 40px rgba(86,13,26,.24);
-  padding:30px 28px 28px;
-  display:flex;flex-direction:column;align-items:center;gap:14px;
-  position:relative;overflow:hidden;box-sizing:border-box;width:100%;flex:1}
-.env-body::before{content:"";position:absolute;bottom:0;left:0;
-  border-style:solid;border-width:0 0 80px 50%;
-  border-color:transparent transparent rgba(181,136,58,.1) transparent}
-.env-body::after{content:"";position:absolute;bottom:0;right:0;
-  border-style:solid;border-width:0 50% 80px 0;
-  border-color:transparent rgba(181,136,58,.1) transparent transparent}
-.env-wax{width:84px;height:84px;border-radius:50%;flex:none;position:relative;
+/* Wax seal pinned at flap tip (50% height of body) */
+.env-wax{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:4;width:80px;height:80px;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#B02A3E 0%,var(--maroon) 45%,var(--maroon-deep) 100%);
-  box-shadow:0 6px 20px rgba(86,13,26,.38),inset 0 -4px 8px rgba(0,0,0,.22),inset 0 3px 8px rgba(255,255,255,.15);
-  display:grid;place-items:center}
-.env-wax::before{content:"";position:absolute;inset:-6px;border-radius:50%;
+  box-shadow:0 6px 20px rgba(86,13,26,.4),inset 0 -4px 8px rgba(0,0,0,.22),inset 0 3px 8px rgba(255,255,255,.15);
+  display:grid;place-items:center;
+}
+.env-wax::before{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
   background:radial-gradient(circle,transparent 60%,var(--maroon) 61%,var(--maroon-deep) 68%,transparent 69%);
   -webkit-mask:repeating-conic-gradient(#000 0 9deg,transparent 9deg 15deg);
-  mask:repeating-conic-gradient(#000 0 9deg,transparent 9deg 15deg)}
-.env-wax::after{content:"";position:absolute;inset:10px;border-radius:50%;
-  border:1.5px dashed rgba(217,184,114,.6)}
-.env-wax span{font-family:var(--script);color:var(--gold-soft);font-size:26px;
-  text-shadow:0 1px 0 rgba(0,0,0,.3);position:relative;z-index:1}
-.env-tap{font-family:var(--caps);font-size:10px;letter-spacing:.2em;
-  color:var(--maroon);text-transform:uppercase;margin:0}
-/* Card slide-up animation */
-@keyframes cardSlideIn{
-  from{transform:translateY(36px);opacity:0}
-  to{transform:translateY(0);opacity:1}}
+  mask:repeating-conic-gradient(#000 0 9deg,transparent 9deg 15deg);
+}
+.env-wax::after{content:"";position:absolute;inset:10px;border-radius:50%;border:1.5px dashed rgba(217,184,114,.6)}
+.env-wax span{font-family:var(--script);color:var(--gold-soft);font-size:24px;text-shadow:0 1px 0 rgba(0,0,0,.3);position:relative;z-index:1}
+/* Tap hint at bottom */
+.env-tap{
+  position:absolute;bottom:14px;left:0;right:0;
+  text-align:center;font-family:var(--caps);font-size:10px;letter-spacing:.2em;
+  color:var(--maroon);text-transform:uppercase;margin:0;z-index:3;
+}
+/* Card slide-in animation */
+@keyframes cardSlideIn{from{transform:translateY(36px);opacity:0}to{transform:translateY(0);opacity:1}}
 #introCard:not([hidden]){animation:cardSlideIn .65s cubic-bezier(.22,1,.36,1) both}
 @media(max-width:480px){
   #envWrap{width:86vw;max-width:280px}
-  .env-flap{height:90px}
-  .env-body{padding:22px 18px 22px;gap:12px}
-  .env-wax{width:70px;height:70px}
-  .env-wax span{font-size:21px}
+  .env-body{height:170px}
+  .env-wax{width:66px;height:66px}
+  .env-wax span{font-size:19px}
   .env-wax::before{inset:-5px}
   .env-wax::after{inset:8px}
 }
+
 /* ============ NAV ============ */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,248,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:14px;min-height:56px}
@@ -420,8 +430,8 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
   <div id="envWrap">
     <!-- Step 1: Envelope -->
     <div id="envelope" role="button" tabindex="0" aria-label="Open the invitation envelope">
-      <div class="env-flap" aria-hidden="true"></div>
       <div class="env-body">
+        <div class="env-flap" aria-hidden="true"></div>
         <div class="env-wax" aria-hidden="true"><span>K&amp;M</span></div>
         <p class="env-tap">Tap to open</p>
       </div>
