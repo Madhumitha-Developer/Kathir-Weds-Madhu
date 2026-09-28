@@ -53,21 +53,20 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 
 /* ============ INTRO ============ */
 #intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;overflow:hidden;
-  background:linear-gradient(180deg,rgba(255,245,228,.55) 0%,rgba(255,235,205,.3) 50%,rgba(240,200,170,.5) 100%),url('assets/invitation.jpg') center 30%/cover no-repeat}
-#intro .door{position:absolute;top:0;bottom:0;width:50%;background:transparent;transition:transform 1.4s cubic-bezier(.7,0,.2,1)}
-#intro .door.l{left:0}
-#intro .door.r{right:0}
-#intro .door img{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.92;
-  -webkit-mask-image:linear-gradient(90deg,#000 60%,transparent);mask-image:linear-gradient(90deg,#000 60%,transparent)}
+  background:radial-gradient(120% 80% at 50% 30%,#FFF5E6 0%,var(--sky-2) 70%,#F2C9A4 100%)}
+#intro .door{position:absolute;top:0;bottom:0;width:50%;background:inherit;transition:transform 1.4s cubic-bezier(.7,0,.2,1)}
+#intro .door.l{left:0;background:linear-gradient(90deg,#F6D5B4,#FBE7D0);box-shadow:inset -1px 0 0 var(--line)}
+#intro .door.r{right:0;background:linear-gradient(270deg,#F6D5B4,#FBE7D0);box-shadow:inset 1px 0 0 var(--line)}
+#intro .door img{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.85;
+  -webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent)}
 #intro .door.l img{left:0}
 #intro .door.r img{right:0;height:55%;-webkit-mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 45%,transparent 78%);mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 45%,transparent 78%)}
-#intro .card{position:relative;z-index:2;text-align:center;padding:30px 24px 26px;display:grid;justify-items:center;gap:8px;transition:opacity .6s,transform .8s;background:rgba(255,250,238,.93);border-radius:18px;box-shadow:0 12px 48px rgba(86,13,26,.22),inset 0 0 0 5px rgba(255,255,255,.65),inset 0 0 0 6px rgba(181,136,58,.25);border:1.5px solid rgba(181,136,58,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);width:88vw;max-width:300px}
-#intro .eyebrow{color:var(--maroon);font-size:10px;letter-spacing:.26em;opacity:.85}
-#intro h1{margin:0;color:var(--maroon);font-family:var(--script);font-weight:400;font-size:clamp(40px,10.5vw,60px);line-height:1.05;display:flex;flex-direction:column;align-items:center;gap:0}
+#intro .card{position:relative;z-index:2;text-align:center;padding:32px 28px;display:grid;justify-items:center;gap:10px;transition:opacity .6s,transform .8s;background:rgba(255,248,234,.88);border-radius:22px;box-shadow:0 10px 44px rgba(86,13,26,.18),0 1px 0 rgba(255,255,255,.7) inset;border:1px solid rgba(181,136,58,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);width:88vw;max-width:320px}
+#intro .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.22em}
+#intro h1{margin:0;color:var(--maroon);font-family:var(--serif);font-weight:700;font-size:clamp(36px,9vw,58px);letter-spacing:0.01em;line-height:1.1}
 #intro h1 .amp{color:var(--maroon);font-size:.55em;font-weight:400;padding:0 4px}
-.intro-and{font-family:var(--script);font-style:italic;font-size:.42em;color:var(--gold);line-height:1.6;display:block}
 #intro .sub{font-style:italic;color:var(--ink-soft);margin:0}
-.seal{margin-top:2px;width:110px;height:110px;border:0;border-radius:50%;cursor:pointer;position:relative;
+.seal{margin-top:6px;width:116px;height:116px;border:0;border-radius:50%;cursor:pointer;position:relative;
   background:radial-gradient(circle at 35% 30%,#B02A3E 0%,var(--maroon) 45%,var(--maroon-deep) 100%);
   box-shadow:0 10px 24px rgba(86,13,26,.35),inset 0 -6px 12px rgba(0,0,0,.25),inset 0 4px 10px rgba(255,255,255,.18);
   display:grid;place-items:center;animation:pulse 2.4s ease-in-out infinite}
@@ -77,7 +76,7 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 .seal::after{content:"";position:absolute;inset:12px;border-radius:50%;border:1.5px dashed rgba(217,184,114,.7)}
 .seal span{font-family:var(--script);color:var(--gold-soft);font-size:38px;text-shadow:0 1px 0 rgba(0,0,0,.35)}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-#intro .hint{font-size:10px;color:var(--maroon);margin-top:2px;letter-spacing:.18em;line-height:1.5}
+#intro .hint{font-size:11px;color:var(--maroon);margin-top:4px;letter-spacing:.15em}
 #intro.open .door.l{transform:translateX(-102%)}
 #intro.open .door.r{transform:translateX(102%)}
 #intro.open .card{opacity:0;transform:scale(1.15)}
@@ -85,18 +84,14 @@ html[lang="ta"] .caps{font-family:var(--tamil);letter-spacing:.02em;text-transfo
 /* intro decorative elements */
 .intro-vline{display:none}
 .intro-lotus{color:var(--gold);font-size:18px;line-height:1;margin-top:2px}
-.intro-ornament{display:flex;align-items:center;width:100%;color:rgba(181,136,58,.8);font-size:13px;gap:6px}
-.intro-ornament::before,.intro-ornament::after{content:"";flex:1;height:1px;background:rgba(181,136,58,.45)}
 .intro-date{font-size:14px;color:var(--ink-soft);font-style:italic;margin:0;font-family:var(--serif)}
 #intro.gone{display:none}
 @media (max-width:480px){
   #intro .door.l{box-shadow:none}
   #intro .door.r{box-shadow:none}
-  #intro .card{padding:20px 14px 18px;gap:6px;width:86vw;max-width:272px}
-  #intro h1{font-size:clamp(32px,8.5vw,44px)}
-  #introCard .ganesha{width:48px}
-  .intro-ornament{font-size:11px}
-  #intro .door img{opacity:.88;max-width:100%}
+  #intro .card{padding:20px 16px;gap:7px;width:86vw;max-width:280px}
+  #intro h1{font-size:clamp(26px,7.8vw,38px)}
+  #intro .door img{opacity:.75;max-width:100%}
   #intro .door.r img{height:75%}
   .seal{width:96px;height:96px;margin-top:2px}
   .seal span{font-size:30px}
@@ -237,7 +232,6 @@ html[lang="ta"] .nav .links a{font-family:var(--tamil);letter-spacing:0;text-tra
   .dates .num{font-size:clamp(30px,8vw,62px)}
 }
 .ganesha{width:74px;height:auto;margin-bottom:6px}
-#introCard .ganesha{width:60px;margin-bottom:4px}
 .hero .together{color:var(--maroon);font-size:15px;margin:10px 0 0}
 .names{color:var(--maroon);font-size:clamp(68px,13vw,124px);margin:4px 0 0;display:grid;justify-items:center}
 .names .amp{color:var(--gold);font-size:.62em;display:flex;align-items:center;gap:14px;line-height:1}
@@ -434,17 +428,12 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
   <div class="door l"><img src="assets/flora-left.jpg" alt=""></div>
   <div class="door r"><img src="assets/flora-right.jpg" alt=""></div>
   <div class="card" id="introCard">
-    <img class="ganesha" src="assets/ganesha.png" alt="Lord Ganesha">
-    <div class="eyebrow caps" data-i18n="introEyebrow">The Wedding Of</div>
-    <div class="intro-ornament" aria-hidden="true">✿</div>
-    <h1 class="script">
-      <span data-i18n="groom">Kathir</span>
-      <em class="intro-and">and</em>
-      <span data-i18n="bride">Madhu</span>
-    </h1>
-    <div class="intro-ornament" aria-hidden="true">❧</div>
+    <img class="ganesha" src="assets/ganesha.png" alt="">
+    <div class="eyebrow caps" data-i18n="introEyebrow">A Wedding Invitation</div>
+    <h1 class="script"><span data-i18n="groom">Kathir</span> <span class="amp">&amp;</span> <span data-i18n="bride">Madhu</span></h1>
     <button class="seal" id="sealBtn" aria-label="Open the invitation"><span>K&amp;M</span></button>
-    <div class="hint caps" data-i18n="tapSeal">Tap the seal to open invitation</div>
+    <div class="intro-lotus" aria-hidden="true">✵</div>
+    <div class="hint caps" data-i18n="tapSeal">Tap the seal to open your invitation</div>
   </div>
 </div>
 
