@@ -427,24 +427,13 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
 <div id="intro" role="dialog" aria-label="Wedding invitation">
   <div class="door l"><img src="assets/flora-left.jpg" alt=""></div>
   <div class="door r"><img src="assets/flora-right.jpg" alt=""></div>
-  <div id="envWrap">
-    <!-- Step 1: Envelope -->
-    <div id="envelope" role="button" tabindex="0" aria-label="Open the invitation envelope">
-      <div class="env-body">
-        <div class="env-flap" aria-hidden="true"></div>
-        <div class="env-wax" aria-hidden="true"><span>K&amp;M</span></div>
-        <p class="env-tap">Tap to open</p>
-      </div>
-    </div>
-    <!-- Step 2: Card (hidden until envelope opens) -->
-    <div class="card" id="introCard" hidden>
-      <img class="ganesha" src="assets/ganesha.png" alt="">
-      <div class="eyebrow caps" data-i18n="introEyebrow">A Wedding Invitation</div>
-      <h1 class="script"><span data-i18n="groom">Kathir</span> <span class="amp">&amp;</span> <span data-i18n="bride">Madhu</span></h1>
-      <button class="seal" id="sealBtn" aria-label="Open the invitation"><span>K&amp;M</span></button>
-      <div class="intro-lotus" aria-hidden="true">✵</div>
-      <div class="hint caps" data-i18n="tapSeal">Tap the seal to open your invitation</div>
-    </div>
+  <div class="card" id="introCard">
+    <img class="ganesha" src="assets/ganesha.png" alt="">
+    <div class="eyebrow caps" data-i18n="introEyebrow">A Wedding Invitation</div>
+    <h1 class="script"><span data-i18n="groom">Kathir</span> <span class="amp">&amp;</span> <span data-i18n="bride">Madhu</span></h1>
+    <button class="seal" id="sealBtn" aria-label="Open the invitation"><span>K&amp;M</span></button>
+    <div class="intro-lotus" aria-hidden="true">✵</div>
+    <div class="hint caps" data-i18n="tapSeal">Tap the seal to open your invitation</div>
   </div>
 </div>
 
@@ -802,19 +791,6 @@ function openInvite(){
 }
 $("#sealBtn").addEventListener("click",openInvite);
 
-/* ---------------- envelope open ---------------- */
-(function(){
-  const env=$("#envelope"), wrap=$("#envWrap"), card=$("#introCard");
-  function openEnv(){
-    if(wrap.classList.contains("env-open")) return;
-    wrap.classList.add("env-open");
-    setTimeout(()=>{ env.hidden=true; card.removeAttribute("hidden"); },680);
-  }
-  env.addEventListener("click", openEnv);
-  env.addEventListener("keydown", e=>{
-    if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openEnv(); }
-  });
-})();
 $("#musicBtn").addEventListener("click",()=>Music.toggle());
 
 /* ---------------- petals ---------------- */
