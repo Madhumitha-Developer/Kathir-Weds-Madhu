@@ -322,6 +322,38 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
 #scratchReveal.done{display:none}
 @media (prefers-reduced-motion:reduce){.scratch-hint svg{animation:none}}
 
+
+/* mobile: smaller scratch card + scroll cue */
+@media (max-width:560px){
+  .hero{padding-top:20px}
+  .hero .names{font-size:clamp(38px,10.5vw,44px);line-height:.95}
+  .hero .invite-line{font-size:15px;margin:2px 0 8px}
+  .hero .ganesha{width:44px}
+  .dates-wrap{width:min(300px,84%);border-radius:12px}
+  .dates-wrap .dates{border-radius:12px}
+  .dates .d{padding:2px 6px}
+  .dates .lotus{width:18px;height:11px;margin-bottom:2px}
+  .dates .lbl{font-size:10px}
+  .dates .dow,.dates .mon{font-size:11px}
+  .dates .num{font-size:clamp(28px,8vw,36px)}
+  .dates .tm{font-size:11px;margin-top:2px;text-align:center}
+  .dates .mid{width:20px}
+  .dates .mid svg{width:12px}
+  .scratch-hint{margin-top:10px;font-size:11px}
+  #scratchReveal{padding:7px 14px;font-size:11px;margin-top:8px}
+}
+.scroll-cue{display:none}
+@media (max-width:560px){
+  .scroll-cue{display:flex;position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;flex-direction:column;align-items:center;gap:0;
+    padding:5px 14px 2px;border:0;border-radius:99px;background:rgba(255,246,235,.9);box-shadow:0 4px 14px rgba(86,13,26,.25);color:var(--maroon);
+    font-family:var(--caps);font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:opacity .4s,visibility .4s}
+  html[lang="ta"] .scroll-cue{font-family:var(--tamil);letter-spacing:0;text-transform:none;font-size:12px}
+  .scroll-cue svg{width:18px;height:18px;animation:cueBounce 1.4s ease-in-out infinite}
+  .scroll-cue.hide{opacity:0;visibility:hidden;pointer-events:none}
+  body.locked .scroll-cue{display:none}
+}
+@keyframes cueBounce{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
+
 /* lightbox */
 .lb{position:fixed;inset:0;z-index:120;background:rgba(40,8,14,.9);display:grid;place-items:center;padding:20px}
 .lb img{max-height:88vh;max-width:100%;width:auto;border-radius:4px}
@@ -352,6 +384,7 @@ footer .btn:hover{background:rgba(217,184,114,.12)}
   </div>
 </div>
 
+<button type="button" class="scroll-cue" id="scrollCue" aria-label="Scroll down"><span data-i18n="scrollDown">Scroll down</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
 <canvas id="petals" aria-hidden="true"></canvas>
 
 <!-- ============ NAV ============ -->
@@ -601,7 +634,7 @@ const T = {
   navScratch:"ஸ்க்ராட்ச் கார்டு", navEvents:"நிகழ்வுகள்", navVenue:"இடம்", navWishes:"வாழ்த்துகள்", navGallery:"புகைப்படங்கள்", navContact:"தொடர்பு",
   scKicker:"ஒரு சிறு ஆச்சரியம்", scTitleA:"எங்கள் தேதியை ஸ்க்ராட்ச் செய்து", scTitleB:"வெளிப்படுத்துங்கள்",
   scSub:"எங்கள் திருமணத் தேதியை நினைவில் வையுங்கள்",
-  scHint:"கார்டை உங்கள் விரலால் ஸ்க்ராட்ச் செய்யுங்கள்", scReveal:"உடனே வெளிப்படுத்து",
+  scrollDown:"கீழே ஸ்க்ரோல் செய்யுங்கள்", scHint:"கார்டை உங்கள் விரலால் ஸ்க்ராட்ச் செய்யுங்கள்", scReveal:"உடனே வெளிப்படுத்து",
   together:"எங்கள் குடும்பத்தினருடன் இணைந்து", inviteLine:"எங்கள் திருமணத்திற்கு உங்களை அன்புடன் அழைக்கிறோம்",
   reception:"வரவேற்பு", marriage:"திருமணம்", sun:"ஞாயிறு", mon:"திங்கள்", nov:"நவம்பர்",
   quote:"“எங்கள் குடும்பத்தினரின் ஆசீர்வாதத்துடன், எங்கள் அன்பையும் இணைவையும் கொண்டாட உங்களை மகிழ்ச்சியுடன் அழைக்கிறோம்.”",
@@ -728,6 +761,13 @@ const Petals = (()=>{
   return { burst(){ if(reduce) return; add(innerWidth<480?28:60,true); until=performance.now()+25000; if(!raf) raf=requestAnimationFrame(draw); } };
 })();
 
+/* ---------------- scroll cue (mobile) ---------------- */
+(function(){
+  const c=document.getElementById("scrollCue"); if(!c) return;
+  const upd=()=>c.classList.toggle("hide", window.scrollY>60);
+  addEventListener("scroll",upd,{passive:true}); upd();
+  c.addEventListener("click",()=>{ const n=document.querySelector(".count")||document.getElementById("events"); if(n) n.scrollIntoView({behavior:"smooth"}); });
+})();
 /* ---------------- scratch card ---------------- */
 (function initScratch(){
   const card=$("#scratch"), cv=$("#scratchCanvas"), hint=$("#scratchHint"), revealBtn=$("#scratchReveal");
