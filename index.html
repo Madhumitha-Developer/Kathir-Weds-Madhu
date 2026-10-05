@@ -807,19 +807,27 @@ const Petals = (()=>{
     cx.globalCompositeOperation="destination-out";
     cx.beginPath(); cx.arc(px,py,48*DPR,0,Math.PI*2); cx.fill();
   }
-  function pos(e){ return e.touches&&e.touches[0] ? {x:e.touches[0].clientX,y:e.touches[0].clientY} : {x:e.clientX,y:e.clientY}; }
+  function pos(e){ return {x:e.clientX, y:e.clientY}; }
   let moveN=0;
-  function onDown(e){ if(done) return; scratching=true; const p=pos(e); scratchAt(p.x,p.y); }
-  function onMove(e){ if(done||!scratching) return; e.preventDefault(); const p=pos(e); scratchAt(p.x,p.y);
-    if(++moveN%2===0 && pct()>0.30) finish(true); }
+  function onDown(e){
+    if(done) return;
+    e.preventDefault();
+    scratching=true;
+    try{ cv.setPointerCapture(e.pointerId); }catch(_){}
+    const p=pos(e); scratchAt(p.x,p.y);
+  }
+  function onMove(e){
+    if(done||!scratching) return;
+    e.preventDefault();
+    const p=pos(e); scratchAt(p.x,p.y);
+    if(++moveN%2===0 && pct()>0.30) finish(true);
+  }
   function onUp(){ scratching=false; }
 
-  cv.addEventListener("pointerdown",onDown);
-  cv.addEventListener("pointermove",onMove);
-  addEventListener("pointerup",onUp);
-  cv.addEventListener("touchstart",onDown,{passive:true});
-  cv.addEventListener("touchmove",onMove,{passive:false});
-  addEventListener("touchend",onUp);
+  cv.addEventListener("pointerdown", onDown);
+  cv.addEventListener("pointermove", onMove);
+  cv.addEventListener("pointerup",   onUp);
+  cv.addEventListener("pointercancel", onUp);
   revealBtn.addEventListener("click",()=>finish(true));
   addEventListener("resize",()=>{ if(!done) paintFoil(); });
 
