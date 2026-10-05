@@ -811,7 +811,7 @@ const Petals = (()=>{
   let moveN=0;
   function onDown(e){ if(done) return; scratching=true; const p=pos(e); scratchAt(p.x,p.y); }
   function onMove(e){ if(done||!scratching) return; e.preventDefault(); const p=pos(e); scratchAt(p.x,p.y);
-    if(++moveN%2===0 && pct()>0.15) finish(true); }
+    if(++moveN%2===0 && pct()>0.30) finish(true); }
   function onUp(){ scratching=false; }
 
   cv.addEventListener("pointerdown",onDown);
