@@ -805,13 +805,13 @@ const Petals = (()=>{
     const r=card.getBoundingClientRect();
     const px=(x-r.left)*(cv.width/r.width), py=(y-r.top)*(cv.height/r.height);
     cx.globalCompositeOperation="destination-out";
-    cx.beginPath(); cx.arc(px,py,26*DPR,0,Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(px,py,48*DPR,0,Math.PI*2); cx.fill();
   }
   function pos(e){ return e.touches&&e.touches[0] ? {x:e.touches[0].clientX,y:e.touches[0].clientY} : {x:e.clientX,y:e.clientY}; }
   let moveN=0;
   function onDown(e){ if(done) return; scratching=true; const p=pos(e); scratchAt(p.x,p.y); }
   function onMove(e){ if(done||!scratching) return; e.preventDefault(); const p=pos(e); scratchAt(p.x,p.y);
-    if(++moveN%6===0 && pct()>0.55) finish(true); }
+    if(++moveN%2===0 && pct()>0.06) finish(true); }
   function onUp(){ scratching=false; }
 
   cv.addEventListener("pointerdown",onDown);
