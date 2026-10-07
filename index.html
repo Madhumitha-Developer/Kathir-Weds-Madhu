@@ -878,8 +878,8 @@ C.events.forEach(ev=>{
 /* ---------------- venue + share ---------------- */
 $("#mapsBtn").href=C.venue.mapsUrl;
 $("#copyAddr").addEventListener("click",()=>copy(C.venue.name+", "+C.venue.address));
-const shareText=`Kathir & Madhu invite you to their wedding 💐\nReception: Sun 15 Nov · Muhurtham: Mon 16 Nov 2026\nGS Resort, Nagapattinam\n${C.siteUrl}`;
-["#waShare","#waShare2"].forEach(s=>$(s).href="https://wa.me/?text="+encodeURIComponent(shareText));
+const shareText=`With the blessings of our families,\nwe invite you to celebrate our special day. ❤️\n\nKATHIR ♥️ MADHU\n\nReception\nSunday, 15 November 2026 | 6:30 PM onwards\n\nMuhurtham\nMonday, 16 November 2026 | 9:30 – 10:30 AM\n\n📍 GS Resort, Nagapattinam\nhttps://www.google.com/maps/search/?api=1&query=GS+Resorts+MRXM%2BVF3+Therkupoigainallur+Nagapattinam\n\nJoin us, bless us & celebrate with us!\n\nOpen our invitation & send us your wishes:\n${C.siteUrl}`;
+[["#waShare","#waShare2"]].flat().forEach(s=>{ const el=$(s); if(el) el.href="https://wa.me/?text="+encodeURIComponent(shareText); });
 $("#copyLink").addEventListener("click",()=>copy(C.siteUrl));
 
 /* ---------------- lightbox ---------------- */
