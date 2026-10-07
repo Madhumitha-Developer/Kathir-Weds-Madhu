@@ -4,7 +4,7 @@
    ========================================================= */
 window.WEDDING_CONFIG = {
   // Public URL after you deploy (used for share links)
-  siteUrl: "https://kathir-weds-madhu.vercel.app/",
+  siteUrl: "https://www.kathiresan.in/",
 
   // ---- Events (IST, 24h). Times follow the usual order: reception evening, muhurtham next morning.
   events: [
