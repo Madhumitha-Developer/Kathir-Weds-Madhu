@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kathir &amp; Madhu Wedding</title>
+<title>Kathir and Madhu Wedding</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
-<meta name="description" content="Kathir &amp; Madhu invite you to their wedding — Reception 15 Nov and Muhurtham 16 Nov 2026 at GS Resort, Nagapattinam.">
+<meta name="description" content="Kathir and Madhu Wedding">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Kathir &amp; Madhu Wedding">
-<meta property="og:title" content="Kathir &amp; Madhu — Wedding Invitation">
-<meta property="og:description" content="Kathir and Madhu Wedding">
-<meta property="og:image" content="https://kathir-weds-madhu.vercel.app/assets/og.jpg">
+<meta property="og:site_name" content="Kathir and Madhu Wedding">
+<meta property="og:title" content="Kathir and Madhu Wedding">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://www.kathiresan.in/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://kathir-weds-madhu.vercel.app/">
+<meta property="og:url" content="https://www.kathiresan.in/">
+<meta name="twitter:title" content="Kathir and Madhu Wedding">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://www.kathiresan.in/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#7B1426">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -878,8 +881,19 @@ C.events.forEach(ev=>{
 /* ---------------- venue + share ---------------- */
 $("#mapsBtn").href=C.venue.mapsUrl;
 $("#copyAddr").addEventListener("click",()=>copy(C.venue.name+", "+C.venue.address));
-const shareText=`With the blessings of our families,\nwe invite you to celebrate our special day. ❤\n\nKATHIR 💕 MADHU\n\nReception\nSunday, 15 November 2026 | 6:30 PM onwards\n\nMuhurtham\nMonday, 16 November 2026 | 9:30 – 10:30 AM\n\n📍 GS Resort, Nagapattinam\n\nJoin us, bless us & celebrate with us!\n\nOpen our invitation & send us your wishes:\n${C.siteUrl}`;
-[["#waShare","#waShare2"]].flat().forEach(s=>{ const el=$(s); if(el) el.href="https://wa.me/?text="+encodeURIComponent(shareText); });
+const shareText=`With the blessings of our families,\nwe invite you to celebrate our special day. ❤️\n\nKATHIR ♥️ MADHU\n\nReception\nSunday, 15 November 2026 | 6:30 PM onwards\n\nMuhurtham\nMonday, 16 November 2026 | 9:30 – 10:30 AM\n\n📍 GS Resort, Nagapattinam\n\nJoin us, bless us & celebrate with us!\n\nOpen our invitation & send us your wishes:\n${C.siteUrl}`;
+const waUrl="https://api.whatsapp.com/send?text="+encodeURIComponent(shareText);
+["#waShare","#waShare2"].forEach(s=>{
+  const el=$(s);
+  if(!el) return;
+  el.href=waUrl;
+  el.addEventListener("click",async(e)=>{
+    if(navigator.share && /mobile|android|iphone|ipad/i.test(navigator.userAgent)){
+      e.preventDefault();
+      try{ await navigator.share({title:"Kathir and Madhu Wedding",text:shareText}); }catch(_){ location.href=waUrl; }
+    }
+  });
+});
 $("#copyLink").addEventListener("click",()=>copy(C.siteUrl));
 
 /* ---------------- lightbox ---------------- */
