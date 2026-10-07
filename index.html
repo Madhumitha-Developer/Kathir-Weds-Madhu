@@ -878,7 +878,7 @@ C.events.forEach(ev=>{
 /* ---------------- venue + share ---------------- */
 $("#mapsBtn").href=C.venue.mapsUrl;
 $("#copyAddr").addEventListener("click",()=>copy(C.venue.name+", "+C.venue.address));
-const shareText=`With the blessings of our families,\nwe invite you to celebrate our special day.\n\nKATHIR & MADHU\n\nReception\nSunday, 15 November 2026 | 6:30 PM onwards\n\nMuhurtham\nMonday, 16 November 2026 | 9:30 – 10:30 AM\n\nVenue: GS Resort, Nagapattinam\n\nJoin us, bless us & celebrate with us!\n\nOpen our invitation & send us your wishes:\n${C.siteUrl}`;
+const shareText=`With the blessings of our families,\nwe invite you to celebrate our special day. ❤\n\nKATHIR 💕 MADHU\n\nReception\nSunday, 15 November 2026 | 6:30 PM onwards\n\nMuhurtham\nMonday, 16 November 2026 | 9:30 – 10:30 AM\n\n📍 GS Resort, Nagapattinam\n\nJoin us, bless us & celebrate with us!\n\nOpen our invitation & send us your wishes:\n${C.siteUrl}`;
 [["#waShare","#waShare2"]].flat().forEach(s=>{ const el=$(s); if(el) el.href="https://wa.me/?text="+encodeURIComponent(shareText); });
 $("#copyLink").addEventListener("click",()=>copy(C.siteUrl));
 
